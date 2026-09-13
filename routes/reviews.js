@@ -3,23 +3,8 @@ const router = express.Router({ mergeParams: true });// mergeParams: true allows
 const Listing =require("../Models/listing.js");
 const Review = require("../Models/review.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
-const { reviewSchema} = require("../schema.js");
-const {isLoggedin} = require("../middleware.js")
+const {isLoggedin ,validateReview} = require("../middleware.js")
 
-
-
-
-
-const validateReview = (req,res,next)=>{
-    let {error} =reviewSchema.validate(req.body);
-    if(error){
-        let errMsg = error.details.map((el)=>el.message).join(",");
-        throw new ExpressError(400 , errMsg);
-    }else{
-        next();
-    }
-}
 
 
 //REVIEW ----------------------------------------
