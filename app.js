@@ -112,7 +112,9 @@ app.use("/ai" , aiRouter);
 app.use("/" , userRouter);
 
 
-
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 //ERROR HANDLING MIDDLEWARE
 app.use((req,res,next)=>{
