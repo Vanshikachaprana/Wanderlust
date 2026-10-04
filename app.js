@@ -1,5 +1,4 @@
 require('dotenv').config()
-console.log(process.env);
 
 
 const express = require("express");
@@ -14,6 +13,7 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const {listingSchema , reviewSchema} = require("./schema.js");
 const session = require("express-session");
+const {MongoStore} = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -23,10 +23,11 @@ const User = require("./Models/user.js");
 const listingsRouter = require("./routes/listings.js");
 const reviewsRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/user.js")
+const aiRouter = require("./routes/ai.js");
 
 
 //Connecting Database
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
  .then(()=>{
@@ -38,20 +39,35 @@ main()
 
  
 async function main(){
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended : true}));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
 
+const store = MongoStore.create({
+    mongoUrl : dbUrl,
+    crypto: {
+        secret:process.env.SECRET,
+    },
+    touchAfter :24 *3600,
+
+});
+
+store.on("error",(err)=>{
+    console.log("Error in MONGO SESSION STORE",err);
+});
+
 
 const sessionOptions = {
-    secret  : "myfirstmajorproject",
+    store,
+    secret  : process.env.SECRET,
     resave : false,
     saveUninitialized : true,
     cookie :{
@@ -63,11 +79,11 @@ const sessionOptions = {
 
 
 
-app.get("/",(req,res)=>{
- wrapAsync(async (req,res)=>{
-  const allListings= await Listing.find({});
-  res.render("listings/index",{allListings});
-})});
+// app.get("/",(req,res)=>{
+//  wrapAsync(async (req,res)=>{
+//   const allListings= await Listing.find({});
+//   res.render("listings/index",{allListings});
+// })});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -92,7 +108,9 @@ app.use((req,res,next)=>{
 // Express Router is used to separate listing and review routes from the main app.js file
 app.use("/listings" , listingsRouter);
 app.use("/listings/:id/reviews" , reviewsRouter);
+app.use("/ai" , aiRouter);
 app.use("/" , userRouter);
+
 
 
 

@@ -1,42 +1,74 @@
 <%  layout("/layouts/boilerplate")%>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Signup on Wanderlust</h1>
-    <div class="col-8 offset-3">
-        <form action="/signup" method="POST" novalidate class="needs-validation">
-             <div class="mb-3">
-            <label for="username" class="form-label" >username</label>
-            <input type="text"
-             name="username"
-             id="username"
-              placeholder="enter username" 
-              class="form-control"
-               required >
-            <div class="valid-feedback">Looks good</div>
-        </div>
+<div class="auth-page">
+    <div class="auth-card">
 
-           <div class="mb-3">
-            <label for="email" class="form-label" >Email</label>
-            <input type="email" 
-            name="email" 
-            id="email"
-            placeholder="enter email"
-             class="form-control"
-              required>
-       
-        </div>
+        <h1>Join WanderLust</h1>
+        <p class="auth-subtitle">Create an account and start exploring stays</p>
 
-           <div class="mb-3">
-            <label for="password" class="form-label" >Password</label>
-            <input type="password"
-             name="password"
-             id="password"
-              placeholder="enter password"
-               class="form-control" 
-               required>
-            <div class="valid-feedback">Looks strong</div>
-        </div>
-        <button class="btn btn-success">Signup</button>
+        <form action="/signup" method="POST">
+
+            <!-- Username -->
+            <div class="auth-field">
+                <label for="username">Username</label>
+
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="auth-field">
+                <label for="email">Email</label>
+
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="auth-field">
+                <label for="password">Password</label>
+
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+                </div>
+            </div>
+
+            <button type="submit" class="auth-btn">
+                Sign up
+            </button>
+
         </form>
+
+        <p class="auth-bottom">
+            Already have an account?
+            <a href="/login">Log in</a>
+        </p>
+
     </div>
 </div>

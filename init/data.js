@@ -10,6 +10,7 @@ const sampleListings = [
     price: 1500,
     location: "Malibu",
     country: "United States",
+    category: "beaches"
   },
   {
     title: "Modern Loft in Downtown",
@@ -22,6 +23,7 @@ const sampleListings = [
     price: 1200,
     location: "New York City",
     country: "United States",
+    category: "cities"
   },
 
   {
@@ -47,6 +49,7 @@ const sampleListings = [
     price: 1000,
     location: "Aspen",
     country: "United States",
+    category: "mountains"
   },
   {
     title: "Historic Villa in Tuscany",
@@ -59,6 +62,7 @@ const sampleListings = [
     price: 2500,
     location: "Florence",
     country: "Italy",
+    category: "castle"
   },
   {
     title: "Secluded Treehouse Getaway",
@@ -71,6 +75,7 @@ const sampleListings = [
     price: 800,
     location: "Portland",
     country: "United States",
+    category: "farms"
   },
   {
     title: "Beachfront Paradise",
@@ -83,6 +88,7 @@ const sampleListings = [
     price: 2000,
     location: "Cancun",
     country: "Mexico",
+    category: "beaches"
   },
   {
     title: "Rustic Cabin by the Lake",
@@ -95,6 +101,7 @@ const sampleListings = [
     price: 900,
     location: "Lake Tahoe",
     country: "United States",
+     category: "mountains"
   },
   {
     title: "Luxury Penthouse with City Views",
@@ -119,6 +126,7 @@ const sampleListings = [
     price: 3000,
     location: "Verbier",
     country: "Switzerland",
+     category: "mountains"
   },
   {
     title: "Safari Lodge in the Serengeti",
@@ -131,6 +139,7 @@ const sampleListings = [
     price: 4000,
     location: "Serengeti National Park",
     country: "Tanzania",
+    category: "camping"
   },
   {
     title: "Historic Canal House",

@@ -5,10 +5,30 @@ const geocodingClient = mbxgeocoding({ accessToken: mapToken });
 
 
 //Index Route
-module.exports.index = async (req,res)=>{
-  const allListings= await Listing.find({});
-  res.render("listings/index",{allListings});
+// Index Route
+module.exports.index = async (req, res) => {
 
+    const { category, search } = req.query;
+
+    let filter = {};
+
+    // Category filter
+    if (category) {
+        filter.category = category;
+    }
+
+    // Search filter
+    if (search) {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } }
+        ];
+    }
+
+    const allListings = await Listing.find(filter);
+
+    res.render("listings/index", { allListings });
 };
 
 //New
